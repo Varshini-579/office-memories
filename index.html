@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omega Memory Portal</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff9ecf,#c3aed6,#f5f7fa);
+    background-size:300% 300%;
+    animation:bgMove 12s ease infinite;
+    overflow:hidden;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* ================= LANDING ================= */
+.landing{
+    text-align:center;
+    transition:0.6s ease;
+}
+
+.landing.hide{
+    opacity:0;
+    transform:scale(1.1);
+}
+
+.logo-circle{
+    width:230px;
+    height:230px;
+    border-radius:50%;
+    padding:8px;
+    background:linear-gradient(145deg,#ff8ecf,#ffffff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:auto;
+    box-shadow:0 15px 35px rgba(255,105,180,0.3);
+}
+
+.logo-inner{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    background:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.logo-inner img{
+    width:80%;
+    object-fit:contain;
+}
+
+.glass-btn{
+    margin-top:25px;
+    padding:12px 40px;
+    font-size:16px;
+    border-radius:30px;
+    border:1px solid rgba(255,255,255,0.6);
+    background:rgba(255,182,193,0.35);
+    backdrop-filter:blur(12px);
+    color:#d63384;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.4s ease;
+    box-shadow:0 8px 20px rgba(255,105,180,0.25);
+}
+
+.glass-btn:hover{
+    background:#ff4fa3;
+    color:white;
+    transform:translateY(-4px);
+}
+
+/* ================= LOGIN ================= */
+.login-page{
+    position:absolute;
+    width:380px;
+    padding:30px;
+    border-radius:25px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.3);
+    box-shadow:0 20px 45px rgba(0,0,0,0.2);
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    animation:fadeIn 0.6s ease forwards;
+}
+
+.card-image{
+    width:100%;
+    height:170px;
+    overflow:hidden;
+    border-radius:15px;
+    margin-bottom:20px;
+}
+
+.card-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.login-page h2{
+    color:white;
+    margin-bottom:15px;
+}
+
+.login-page input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.4);
+    background:rgba(255,255,255,0.2);
+    color:white;
+    outline:none;
+}
+
+.login-page input::placeholder{
+    color:rgba(255,255,255,0.8);
+}
+
+.login-page button{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    border-radius:30px;
+    border:1px solid rgba(255,255,255,0.6);
+    background:rgba(255,182,193,0.3);
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.4s ease;
+}
+
+.login-page button:hover{
+    background:#ff4fa3;
+    transform:translateY(-4px);
+}
+
+.error{
+    color:#ffe0f0;
+    margin-top:8px;
+    display:none;
+}
+
+/* ================= MEMORIES ================= */
+.memories{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    padding-top:40px;
+    overflow:auto;
+    animation:fadeIn 0.6s ease forwards;
+}
+
+.memory-grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:20px;
+}
+
+/* Add Card */
+.add-card{
+    width:170px;
+    height:170px;
+    margin:15px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.25);
+    backdrop-filter:blur(15px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:60px;
+    cursor:pointer;
+    transition:0.3s ease;
+}
+
+.add-card:hover{
+    transform:scale(1.1);
+}
+
+/* Image Card */
+.memory-img-card{
+    width:170px;
+    height:170px;
+    margin:15px;
+    border-radius:20px;
+    overflow:hidden;
+    position:relative;
+    background:rgba(255,255,255,0.25);
+    backdrop-filter:blur(15px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.memory-img-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* 3 dot button */
+.menu-btn{
+    position:absolute;
+    top:10px;
+    right:10px;
+    width:32px;
+    height:32px;
+    border:none;
+    border-radius:50%;
+    background:rgba(0,0,0,0.6);
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+/* dropdown */
+.dropdown{
+    position:absolute;
+    top:45px;
+    right:10px;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    display:none;
+    flex-direction:column;
+    overflow:hidden;
+    min-width:120px;
+}
+
+.dropdown button{
+    padding:10px;
+    border:none;
+    background:white;
+    cursor:pointer;
+    text-align:left;
+}
+
+.dropdown button:hover{
+    background:#ff4fa3;
+    color:white;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Landing -->
+<div class="landing" id="landing">
+    <div class="logo-circle">
+        <div class="logo-inner">
+            <img src="471538386_616804984257285_7629370551154272854_n.jpg">
+        </div>
+    </div>
+    <button class="glass-btn" onclick="openLogin()">Click Here</button>
+</div>
+
+<!-- Login -->
+<div class="login-page" id="loginPage">
+    <div class="card-image">
+        <img src="img_2.jpeg">
+    </div>
+
+    <h2>Nikhil's Batch</h2>
+
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="checkLogin()">Login</button>
+    <div class="error" id="error">Invalid Credentials</div>
+</div>
+
+<!-- Memories -->
+<div class="memories" id="memories">
+    <h2>Welcome to Memory Stack 🎉</h2>
+
+    <div class="memory-grid" id="memoryGrid">
+        <div class="add-card" onclick="triggerUpload()">+</div>
+    </div>
+
+    <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="addImage(event)">
+</div>
+
+<script>
+
+const landing = document.getElementById("landing");
+const loginPage = document.getElementById("loginPage");
+const memories = document.getElementById("memories");
+const memoryGrid = document.getElementById("memoryGrid");
+const imageInput = document.getElementById("imageInput");
+
+function openLogin(){
+    landing.classList.add("hide");
+    setTimeout(()=>{
+        landing.style.display="none";
+        loginPage.style.display="flex";
+    },500);
+}
+
+function checkLogin(){
+    if(username.value === "nikhil" && password.value === "1234"){
+        loginPage.style.display="none";
+        memories.style.display="flex";
+        loadImages();
+    } else {
+        error.style.display="block";
+    }
+}
+
+function triggerUpload(){
+    imageInput.click();
+}
+
+function addImage(event){
+    const file = event.target.files[0];
+    if(!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e){
+        let images = JSON.parse(localStorage.getItem("memoryImages")) || [];
+        images.push(e.target.result);
+        localStorage.setItem("memoryImages", JSON.stringify(images));
+        loadImages();
+    };
+    reader.readAsDataURL(file);
+}
+
+function loadImages(){
+    memoryGrid.innerHTML = '<div class="add-card" onclick="triggerUpload()">+</div>';
+    let images = JSON.parse(localStorage.getItem("memoryImages")) || [];
+
+    images.forEach((src, index)=>{
+        let imgCard = document.createElement("div");
+        imgCard.className="memory-img-card";
+
+        imgCard.innerHTML=`
+            <img src="${src}">
+            <button class="menu-btn" onclick="toggleMenu(this)">⋮</button>
+            <div class="dropdown">
+                <button onclick="downloadImage('${src}')">Download</button>
+                <button onclick="deleteImage(${index})">Delete</button>
+            </div>
+        `;
+
+        memoryGrid.appendChild(imgCard);
+    });
+}
+
+function toggleMenu(btn){
+    document.querySelectorAll(".dropdown").forEach(menu=>{
+        menu.style.display="none";
+    });
+    btn.nextElementSibling.style.display="flex";
+}
+
+document.addEventListener("click",function(e){
+    if(!e.target.classList.contains("menu-btn")){
+        document.querySelectorAll(".dropdown").forEach(menu=>{
+            menu.style.display="none";
+        });
+    }
+});
+
+function downloadImage(src){
+    const a=document.createElement("a");
+    a.href=src;
+    a.download="memory.jpg";
+    a.click();
+}
+
+function deleteImage(index){
+    let images = JSON.parse(localStorage.getItem("memoryImages")) || [];
+    images.splice(index,1);
+    localStorage.setItem("memoryImages", JSON.stringify(images));
+    loadImages();
+}
+
+</script>
+
+</body>
+</html>
