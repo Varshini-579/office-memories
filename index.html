@@ -22,6 +22,7 @@ body{
     background-size:300% 300%;
     animation:bgMove 12s ease infinite;
     overflow:hidden;
+    padding:20px;
 }
 
 @keyframes bgMove{
@@ -269,6 +270,66 @@ body{
 @keyframes fadeIn{
     from{opacity:0; transform:translateY(20px);}
     to{opacity:1; transform:translateY(0);}
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 768px){
+    body{
+        overflow:auto;
+        padding:10px;
+    }
+
+    .logo-circle{
+        width:180px;
+        height:180px;
+    }
+
+    .glass-btn{
+        padding:10px 28px;
+        font-size:14px;
+    }
+
+    .login-page{
+        width:90%;
+        padding:25px;
+    }
+
+    .memory-img-card,
+    .add-card{
+        width:140px;
+        height:140px;
+        margin:10px;
+    }
+}
+
+@media(max-width: 480px){
+    .logo-circle{
+        width:150px;
+        height:150px;
+    }
+
+    .login-page{
+        width:92%;
+        padding:20px;
+    }
+
+    .memory-img-card,
+    .add-card{
+        width:120px;
+        height:120px;
+        margin:8px;
+    }
+
+    .menu-btn{
+        width:28px;
+        height:28px;
+        font-size:16px;
+    }
+
+    h2{
+        font-size:20px;
+    }
 }
 
 </style>
